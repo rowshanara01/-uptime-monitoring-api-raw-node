@@ -7,7 +7,6 @@
  */
 
 // dependencies
-const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const routes = require('../routes');
 const { notFoundHandler } = require('../handlers/routeHandlers/notFoundHandler');
@@ -18,11 +17,11 @@ const handler = {};
 handler.handleReqRes = (req, res) => {
     // request handling
     // get the url and parse it
-    const parsedUrl = url.parse(req.url, true);
+    const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
     const path = parsedUrl.pathname;
     const trimmedPath = path.replace(/^\/+|\/+$/g, '');
     const method = req.method.toLowerCase();
-    const queryStringObject = parsedUrl.query;
+    const queryStringObject = Object.fromEntries(parsedUrl.searchParams);
     const headersObject = req.headers;
 
     const requestProperties = {
@@ -39,28 +38,40 @@ handler.handleReqRes = (req, res) => {
 
     const chosenHandler = routes[trimmedPath] ? routes[trimmedPath] : notFoundHandler;
 
-    chosenHandler(requestProperties, (statusCode, payload) => {
-        statusCode = typeof statusCode === 'number' ? statusCode : 500;
-        payload = typeof payload === 'object' ? payload : {};
-
-        const payloadString = JSON.stringify(payload);
-
-        // return the final response
-        res.writeHead(statusCode);
-        res.end(payloadString);
-    });
-
     req.on('data', (buffer) => {
         realData += decoder.write(buffer);
     });
 
     req.on('end', () => {
         realData += decoder.end();
+        requestProperties.body = handler.parseBody(realData);
 
-        console.log(realData);
-        // response handle
-        res.end('Hello world');
+        chosenHandler(requestProperties, (statusCode, payload) => {
+            const code = typeof statusCode === 'number' ? statusCode : 500;
+            const body = typeof payload === 'object' && payload !== null ? payload : {};
+            const payloadString = JSON.stringify(body);
+
+            res.setHeader('Content-Type', 'application/json');
+            res.writeHead(code);
+            res.end(payloadString);
+        });
     });
+};
+
+handler.parseBody = (rawBody) => {
+    if (!rawBody) {
+        return {};
+    }
+
+    try {
+        const parsedBody = JSON.parse(rawBody);
+        if (typeof parsedBody === 'object' && parsedBody !== null) {
+            return parsedBody;
+        }
+        return {};
+    } catch {
+        return {};
+    }
 };
 
 module.exports = handler;
