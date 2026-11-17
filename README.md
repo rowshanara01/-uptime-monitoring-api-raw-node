@@ -11,7 +11,7 @@
 - 
 <!-- HOW TO RUN -->
 
-## How to run
+## How to run ##
 
 Please follow the below instructions to run this project in your machine:
 
