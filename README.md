@@ -6,7 +6,7 @@
 
 <!-- TABLE OF CONTENTS -->
 
-## Table of Contents ##
+#### Table of Contents ####
 
 - 
 <!-- HOW TO RUN -->
