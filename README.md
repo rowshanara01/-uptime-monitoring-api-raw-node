@@ -49,7 +49,7 @@ git pull
 
 <!-- CONTACT -->
 
-## Contact
+## Contact ##
 
 Sumit Saha - [sumit@learnwithsumit.com](mailto:sumit@learnwithsumit.com)
 
