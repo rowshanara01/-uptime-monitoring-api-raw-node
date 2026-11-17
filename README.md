@@ -15,7 +15,7 @@
 
 Please follow the below instructions to run this project in your machine:
 
-### New Users who never cloned this repository before
+### New Users who never cloned this repository before ###
 
 1. Clone this repository
    ```sh
