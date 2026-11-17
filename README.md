@@ -1,7 +1,3 @@
-[![Youtube][youtube-shield]][youtube-url]
-[![Facebook][facebook-shield]][facebook-url]
-[![Instagram][instagram-shield]][instagram-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -12,11 +8,7 @@
 
 ## Table of Contents ##
 
-- [How to run](#how-to-run)
-  - [New Users](#new-users-who-never-cloned-this-repository-before)
-  - [Old Users](#old-users-who-previously-cloned-the-repository)
-- [Contact](#contact)
-
+- 
 <!-- HOW TO RUN -->
 
 ## How to run
@@ -47,7 +39,7 @@ Please follow the below instructions to run this project in your machine:
    ```
 6. Your app should be available in http://localhost:3000
 
-### Old users who previously cloned the repository
+### Old users who previously cloned the repository ###
 
 Just pull the updated code and follow corresponding lesson README file
 
